@@ -1,0 +1,89 @@
+Searching 123 files for "var {
+  StyleSheet," (case sensitive, whole word)
+
+0 matches
+
+Searching 123 files for "var {
+  StyleSheet,"
+
+/Users/liuhaiping/Git/ppbc/app/layout/layout-flex.js:
+    5: var {
+    6:   StyleSheet,
+
+/Users/liuhaiping/Git/ppbc/app/page/cashDesk/chooseBank.js:
+    7: var {
+    8:   StyleSheet,
+
+/Users/liuhaiping/Git/ppbc/app/page/cashDesk/payDetail.js:
+    7: var {
+    8:   StyleSheet,
+
+/Users/liuhaiping/Git/ppbc/app/page/forgetpwd/banklist.js:
+    7: var {
+    8:   StyleSheet,
+
+/Users/liuhaiping/Git/ppbc/app/page/page-list.js:
+    5: var {
+    6:   StyleSheet,
+
+/Users/liuhaiping/Git/ppbc/app/page/refund/result.js:
+    7: var {
+    8:   StyleSheet,
+
+/Users/liuhaiping/Git/ppbc/app/page/scan/index.js:
+    5: var {
+    6:   StyleSheet,
+
+/Users/liuhaiping/Git/ppbc/app/widget/button/button.js:
+    5: var {
+    6:   StyleSheet,
+
+/Users/liuhaiping/Git/ppbc/app/widget/checkbox/checkbox.js:
+    6: var {
+    7:   StyleSheet,
+
+/Users/liuhaiping/Git/ppbc/app/widget/detail/detail.js:
+    4: var {
+    5:   StyleSheet,
+
+/Users/liuhaiping/Git/ppbc/app/widget/form/form.js:
+    5: var {
+    6:   StyleSheet,
+
+/Users/liuhaiping/Git/ppbc/app/widget/icon/icon.js:
+    5: var {
+    6:   StyleSheet,
+
+/Users/liuhaiping/Git/ppbc/app/widget/keyboard/keyboard.js:
+    9: var {
+   10:   StyleSheet,
+
+/Users/liuhaiping/Git/ppbc/app/widget/link/link.js:
+    5: var {
+    6:   StyleSheet,
+
+/Users/liuhaiping/Git/ppbc/app/widget/modal/modal.js:
+    8: var {
+    9:   StyleSheet,
+
+/Users/liuhaiping/Git/ppbc/app/widget/password/keyboard.js:
+    7: var {
+    8:   StyleSheet,
+
+/Users/liuhaiping/Git/ppbc/app/widget/password/password.js:
+    7: var {
+    8:   StyleSheet,
+
+/Users/liuhaiping/Git/ppbc/app/widget/select-button/select-button.js:
+    6: var {
+    7:   StyleSheet,
+
+/Users/liuhaiping/Git/ppbc/app/widget/separator/separator.js:
+    6: var {
+    7:   StyleSheet,
+
+/Users/liuhaiping/Git/ppbc/app/widget/vcode/vcode.js:
+    6: var {
+    7:   StyleSheet,
+
+20 matches across 20 files
