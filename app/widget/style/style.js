@@ -28,7 +28,9 @@ import React, { Component } from 'react';
 
 import {
   StyleSheet,
-  PixelRatio,Alert, AlertIOS,
+  PixelRatio,
+  Alert, 
+  AlertIOS,
 } from 'react-native';
 
 var Style = {

@@ -39,8 +39,9 @@ var layout = React.createClass({
 
     return {
       source: {
-        //html: html,
-        uri: 'index.html',
+        html: html,
+        //uri: '../debug/login.html',
+        //uri: 'http://192.168.31.114:3033/login.html?tel=15919978052',
         js: js
       }
     };

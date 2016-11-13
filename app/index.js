@@ -17,6 +17,9 @@ import {
 var NavLayouts = require('./layout/nav-layouts');
 var NavWidgets = require('./layout/nav-widgets');
 
+import Merchant from './page/merchant.js'
+import CreateOrder from './page/create-order.js'
+
 var tabs = [
   // {
   //   name: 'password',
@@ -38,18 +41,18 @@ var tabs = [
   // },
   {
     name: 'layouts',
-    title: '扫码',
+    title: '收单',
     icon: require('./images/template@2x.png'),
     getTarget: function(){
-      return (<NavLayouts></NavLayouts>); 
+      return (<CreateOrder></CreateOrder>); 
     }
   },
   {
     name: 'widgets',
-    title: '商户信息',
+    title: '商户',
     icon: require('./images/widget@2x.png'),
     getTarget: function(){
-      return (<NavWidgets></NavWidgets>); 
+      return (<Merchant></Merchant>); 
     }
   }
 ];

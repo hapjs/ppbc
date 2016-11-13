@@ -77,7 +77,18 @@ var components = {
     icon: {
       title: '图标',
       component: require('../layout/layout-icon')
-    }
+    },
+
+    webview: {
+      title: '页面',
+      component: require('../layout/layout-webview')
+    },
+
+    'order-form': {
+      title: '页面',
+      component: require('../page/order-form')
+    },
+
   }
 
 
