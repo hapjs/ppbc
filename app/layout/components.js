@@ -84,11 +84,6 @@ var components = {
       component: require('../layout/layout-webview')
     },
 
-    'order-form': {
-      title: '页面',
-      component: require('../page/order-form')
-    },
-
   }
 
 

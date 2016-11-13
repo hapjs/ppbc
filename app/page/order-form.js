@@ -8,17 +8,28 @@ import RN, {
     Text, Alert, AlertIOS,
 } from 'react-native';
 
-var Widget = require('../widget/widget.js');
+// 用于mixin，简化导航方法的调用
+// 让页面具有 this.props.navigator 上的方法，如 this.push 等
+import NavMinin from '../core/nav-mixin.js';
 
-var {
-    Style,
-    Form,
-    Button
-} = Widget;
-
-var alert = Alert.alert;
+import Widget, {
+  Style,
+  SelectButton,
+  Button,
+  alert,
+  Form
+} from '../widget/widget.js'
 
 var layout = React.createClass({
+
+    mixins: [NavMinin],
+
+    // 跳转到
+    go: function(name){
+        return function(){
+        this.push(name);
+        }.bind(this);
+    },
 
     submit: function () {
         var form = this.refs.form;
@@ -78,7 +89,7 @@ var layout = React.createClass({
                 <RN.ScrollView>
                     <View>
                         <Form ref="form" children={this.state.form} ref="form" />
-                        <Button text="下一步" ref="btnNext" />
+                        <Button text="下一步" ref="btnNext" onPress={this.go('order-scan')} />
                     </View>
                 </RN.ScrollView>
             </View>

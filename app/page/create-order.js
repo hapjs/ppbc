@@ -13,24 +13,20 @@ import RN, {
   AlertIOS,
 } from 'react-native';
 
-import OrderForm from './order-form.js'
-
 // 引用所有页面的引用
-var Layouts = require('../core/components.js').pages || {};
+import { pages } from '../core/components.js';
 
 // 用于mixin，简化导航方法的调用
 // 让页面具有 this.props.navigator 上的方法，如 this.push 等
-var NavMinin = require('../core/nav-mixin.js');
+import NavMinin from '../core/nav-mixin.js';
 
-var Widget = require('../widget/widget.js');
-
-var {
+import Widget, {
   Style,
   SelectButton,
   Button,
   alert,
   BankList
-} = Widget;
+} from '../widget/widget.js'
 
 var Layout = React.createClass({
 
@@ -42,18 +38,14 @@ var Layout = React.createClass({
       this.push(name);
     }.bind(this);
   },
-
-  create: function(){
-    this.go('order-form');
-  },
-
+  
   render: function(){
     var self = this;
     
     return (
         <View style={[Style.mix('page', 'flex'), styles.container]}>
             <Button style={[styles.loginButton]}
-              onPress={this.create}>创建订单</Button>
+              onPress={this.go('order-form')}>创建订单</Button>
         </View>
     );
   }
@@ -69,7 +61,7 @@ var nav = React.createClass({
     return (
       <Widget.Navigator
         style={[Style.mix('flex'), styles.navigator]}
-        components={Layouts}
+        components={pages}
         initialRoute={{
           title: '收单',
           component: Layout
