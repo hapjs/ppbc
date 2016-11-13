@@ -1,69 +1,137 @@
 'use strict';
+
 import React, { Component } from 'react';
 import {
-  AppRegistry,
   StyleSheet,
-  Text,
   View,
+  Text,
   TouchableOpacity,
-  NavigatorIOS,
+  VibrationIOS,
 } from 'react-native';
 
-var QRCodeScreen = require('../../qrcode');
+import Camera from 'react-native-camera';
 
-var ppbc = React.createClass({
+// 用于mixin，简化导航方法的调用
+// 让页面具有 this.props.navigator 上的方法，如 this.push 等
+import NavMinin from '../core/nav-mixin.js';
+
+var QRCodeScreen = React.createClass({
+
+    mixins: [NavMinin],
+
+    // 跳转到
+    go: function(name){
+        return function(){
+        this.push(name);
+        }.bind(this);
+    },
+
+  propTypes: {
+    cancelButtonVisible: React.PropTypes.bool,
+    cancelButtonTitle: React.PropTypes.string,
+    onSucess: React.PropTypes.func,
+    onCancel: React.PropTypes.func,
+  },
+
+  getDefaultProps: function() {
+    return {
+      cancelButtonVisible: false,
+      cancelButtonTitle: 'Cancel',
+    };
+  },
+
+  _onPressCancel: function() {
+    var $this = this;
+    requestAnimationFrame(function() {
+      $this.props.navigator.pop();
+      if ($this.props.onCancel) {
+        $this.props.onCancel();
+      }
+    });
+  },
+
+  _onBarCodeRead: function(result) {
+    var $this = this;
+
+    if (this.barCodeFlag) {
+      this.barCodeFlag = false;
+
+      setTimeout(function() {
+        VibrationIOS.vibrate();
+        //$this.props.navigator.pop();
+        $this.popToTop();
+        //$this.props.onSucess(result.data);
+      }, 1000);
+    }
+  },
+
   render: function() {
+    var cancelButton = null;
+    this.barCodeFlag = true;
+    
+    if (this.props.cancelButtonVisible) {
+      cancelButton = <CancelButton onPress={this._onPressCancel} title={this.props.cancelButtonTitle} />;
+    }
+
     return (
-      <NavigatorIOS
-        style={styles.container}
-        initialRoute={{
-          title: 'Index',
-          backButtonTitle: 'Back',
-          component: Index,
-        }}
-      />
+      <Camera onBarCodeRead={this._onBarCodeRead} captureAudio={false} style={styles.camera}>
+        <View style={styles.rectangleContainer}>
+          <View style={styles.rectangle}/>
+        </View>
+        {cancelButton}
+      </Camera>
     );
-  }
+  },
 });
 
-var Index = React.createClass({
-
+var CancelButton = React.createClass({
   render: function() {
     return (
-      <View style={styles.contentContainer}>
-        <TouchableOpacity onPress={this._onPressQRCode}>
-          <Text>Read QRCode</Text>
+      <View style={styles.cancelButton}>
+        <TouchableOpacity onPress={this.props.onPress}>
+          <Text style={styles.cancelButtonText}>{this.props.title}</Text>
         </TouchableOpacity>
       </View>
     );
   },
-
-  _onPressQRCode: function() {
-    this.props.navigator.push({
-      component: QRCodeScreen,
-      title: 'QRCode',
-      passProps: {
-        onSucess: this._onSucess,
-      },
-    });
-  },
-
-  _onSucess: function(result) {
-    console.log(result);
-  },
-
 });
 
 var styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#F5FCFF',
+
+  camera: {
+    height: 568,
+    alignItems: 'center',
   },
-  contentContainer: {
+
+  rectangleContainer: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-  }
+    backgroundColor: 'transparent',
+  },
+
+  rectangle: {
+    height: 250,
+    width: 250,
+    borderWidth: 2,
+    borderColor: '#00FF00',
+    backgroundColor: 'transparent',
+  },
+
+  cancelButton: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    backgroundColor: 'white',
+    borderRadius: 3,
+    padding: 15,
+    width: 100,
+    bottom: 10,
+  },
+  cancelButtonText: {
+    fontSize: 17,
+    fontWeight: '500',
+    color: '#0097CE',
+  },
 });
 
-module.exports = ppbc;
+module.exports = QRCodeScreen;
