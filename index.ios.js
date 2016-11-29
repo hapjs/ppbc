@@ -5,4 +5,4 @@ import {
   AppRegistry,
 } from 'react-native';
 
-AppRegistry.registerComponent('ppbc', () => require('./app/index.js'));
+AppRegistry.registerComponent('ppbc', () => require('./app/app.js'));

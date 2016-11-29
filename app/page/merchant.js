@@ -71,20 +71,30 @@ var Layout = React.createClass({
       headerContent = (<Button style={[styles.loginButton]}>登录/注册</Button>);
     }
 
+
+
     return (
       <View style={[Style.mix('page', 'flex'), styles.container]}>
           <View style={[styles.header]}>
             {headerContent}
           </View>
-          <View style={[Style.mix('flex'), styles.list]}>
-              <View style={[styles.item]} key={"orders"}>
-                <SelectButton text={"订单列表"}
-                  onPress={self.go("orders")} />
-              </View>
-              {logoutLink}
-          </View>
       </View>
     );
+
+    // return (
+    //   <View style={[Style.mix('page', 'flex'), styles.container]}>
+    //       <View style={[styles.header]}>
+    //         {headerContent}
+    //       </View>
+    //       <View style={[Style.mix('flex'), styles.list]}>
+    //           <View style={[styles.item]} key={"orders"}>
+    //             <SelectButton text={"订单列表"}
+    //               onPress={self.go("orders")} />
+    //           </View>
+    //           {logoutLink}
+    //       </View>
+    //   </View>
+    // );
   }
 });
 

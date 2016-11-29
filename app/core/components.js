@@ -15,6 +15,11 @@ export var pages = {
     component: require('../page/order-scan')
   },
 
+  'order-confirm': {
+    title: '订单确认',
+    component: require('../page/order-confirm')
+  },
+
   //首次绑卡页面
   "UserInfoPage": {
     component: require("../page/bindCard/userInfo"),

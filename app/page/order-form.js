@@ -32,12 +32,16 @@ var layout = React.createClass({
     },
 
     submit: function () {
-        var form = this.refs.form;
-        var err = form.getError();
-        if (err) {
-            Alert.alert(err);
-        } else {
-            Alert.alert('验证成功');
+        if(this.state.price > 0){
+            this.push({
+                title: '扫码',
+                component: require('./order-scan.js'),
+                passProps: {
+                    amount: this.state.price
+                }
+            });
+        }else{
+            return Alert.alert('订单金额错误');
         };
     },
 
@@ -46,32 +50,17 @@ var layout = React.createClass({
 
         return {
             name: '',
-            price: '',
+            price: '20',
             form: {
-
-                'name': {
-                    label: '品名',
-                    type: 'TextInput',
-                    props: {
-                        maxLength: 20,
-                        placeholder: '请输入产品名称',
-                        value: '',
-                        onChange: function (text) {
-                            self.setState({
-                                name: text
-                            });
-                        }
-                    }
-                },
-
+                
                 'price': {
                     label: '金额',
                     type: 'TextInput',
                     props: {
                         maxLength: 8,
                         placeholder: '请输入订单金额',
-                        value: '',
-                        onChange: function (text) {
+                        value: '20',
+                        onChangeText: function (text) {
                             self.setState({
                                 price: text
                             });
@@ -84,12 +73,13 @@ var layout = React.createClass({
     },
 
     render: function () {
+        
         return (
             <View style={Style.mix('page', 'flex')}>
                 <RN.ScrollView>
                     <View>
                         <Form ref="form" children={this.state.form} ref="form" />
-                        <Button text="下一步" ref="btnNext" onPress={this.go('order-scan')} />
+                        <Button text="下一步" ref="btnNext" onPress={this.submit} />
                     </View>
                 </RN.ScrollView>
             </View>

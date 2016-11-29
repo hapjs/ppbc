@@ -6,10 +6,15 @@ import {
   View,
   Text,
   TouchableOpacity,
-  VibrationIOS,
+  Vibration,
+  Alert
 } from 'react-native';
 
+import alert from '../api/alert.js';
+import ajax from '../api/ajax.js';
+
 import Camera from 'react-native-camera';
+import config from '../../config.js';
 
 // 用于mixin，简化导航方法的调用
 // 让页面具有 this.props.navigator 上的方法，如 this.push 等
@@ -18,13 +23,6 @@ import NavMinin from '../core/nav-mixin.js';
 var QRCodeScreen = React.createClass({
 
     mixins: [NavMinin],
-
-    // 跳转到
-    go: function(name){
-        return function(){
-        this.push(name);
-        }.bind(this);
-    },
 
   propTypes: {
     cancelButtonVisible: React.PropTypes.bool,
@@ -41,27 +39,55 @@ var QRCodeScreen = React.createClass({
   },
 
   _onPressCancel: function() {
-    var $this = this;
+    var self = this;
     requestAnimationFrame(function() {
-      $this.props.navigator.pop();
-      if ($this.props.onCancel) {
-        $this.props.onCancel();
+      self.props.navigator.pop();
+      if (self.props.onCancel) {
+        self.props.onCancel();
       }
     });
   },
 
   _onBarCodeRead: function(result) {
-    var $this = this;
+    var self = this, qrcode = result.data, amount = this.props.amount;
 
     if (this.barCodeFlag) {
       this.barCodeFlag = false;
 
-      setTimeout(function() {
-        VibrationIOS.vibrate();
-        //$this.props.navigator.pop();
-        $this.popToTop();
-        //$this.props.onSucess(result.data);
-      }, 1000);
+      console.info('-----this.barCodeFlag----->' + this.barCodeFlag);
+
+        Vibration.vibrate();
+
+        self.barCodeFlag = false;
+        
+        ajax.get({
+          url: config.host + '/api/openapi/checkPayment', 
+          data: { 
+            amount:amount,
+            qrAuthCode: qrcode
+          }
+        }).then(function (json) {
+          
+          if(json.code != 0){
+            return alert(json.message || '扫码失败', function(){
+                self.pop();
+            });
+          };
+
+          self.push({
+            title: '订单确认',
+            component: require('./order-confirm.js'), 
+            passProps: {
+              qrcode: qrcode,
+              amount: amount 
+            }
+          });
+
+        }).catch(function (err) {
+          alert(err, function(){
+            self.pop()
+          });
+        });
     }
   },
 
@@ -72,7 +98,7 @@ var QRCodeScreen = React.createClass({
     if (this.props.cancelButtonVisible) {
       cancelButton = <CancelButton onPress={this._onPressCancel} title={this.props.cancelButtonTitle} />;
     }
-
+    
     return (
       <Camera onBarCodeRead={this._onBarCodeRead} captureAudio={false} style={styles.camera}>
         <View style={styles.rectangleContainer}>

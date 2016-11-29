@@ -38,6 +38,24 @@ var Layout = React.createClass({
       this.push(name);
     }.bind(this);
   },
+
+  next: function(){
+
+
+    this.push({
+      title: '录入订单',
+      component: require('./order-form.js')
+    });
+
+    // this.push({
+    //   title: '订单状态',
+    //   component: require('./order-status.js'),
+    //   passProps: {
+    //     "amount": 30,
+    //     "outTradeNo": 'BSC1480042403903' // data.outTradeNo,
+    //   }
+    // });
+  },
   
   render: function(){
     var self = this;
@@ -45,7 +63,7 @@ var Layout = React.createClass({
     return (
         <View style={[Style.mix('page', 'flex'), styles.container]}>
             <Button style={[styles.loginButton]}
-              onPress={this.go('order-form')}>创建订单</Button>
+              onPress={this.next}>创建订单</Button>
         </View>
     );
   }

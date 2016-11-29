@@ -68,9 +68,7 @@ Alert.alert = function(){
       onPress: opt.onCancel
     });
   };
-
-  console.info(opt)
-
+  
   AlertIOS.alert(
     opt.title,
     opt.message,
